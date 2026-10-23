@@ -18,7 +18,7 @@ function showMessages() {
   messagesList.replaceChildren(); // 前の表示を消す
   for (const message of history) {
     const item = document.createElement('li');
-    if (message.role === 'user') {
+     (message.role === 'user') {
       item.className = 'user';
       item.textContent = 'あなた: ' + message.content;
     } else {
@@ -34,12 +34,12 @@ async function sendQuestion(event) {
   event.preventDefault(); // フォーム送信でページが再読み込みされるのを止める
 
   const question = questionInput.value.trim();
-  if (question === '') {
+   (question === '') {
     statusText.textContent = '質問を入力してください。';
     return;
   }
   // 質問の回数は、履歴の中の質問（user）の数。
-  if (history.length / 2 >= MAX_TURNS) {
+   (history.length / 2 >= MAX_TURNS) {
     statusText.textContent = '質問は' + MAX_TURNS + '回までです。会話をリセットしてください。';
     return;
   }
@@ -56,13 +56,12 @@ async function sendQuestion(event) {
   try {
     // 2. 履歴をまとめてサーバーに送る。
     // TODO: POSTで /api/chat に履歴を送る。下のコメントを外し、throw の行を消す。
-    // const response = await fetch('/api/chat', {
-      // method: 'POST',
-      // headers: {'Content-Type': 'application/json'},
-      // body: JSON.stringify({history: history})
-    // });
-    // const data = await response.json();
-    throw new Error('TODO: app.js の sendQuestion() で、サーバーへの送信を完成させる');
+     const response = await fetch('/api/chat', {
+       method: 'POST',
+       headers: {'Content-Type': 'application/json'},
+       body: JSON.stringify({history: history})
+     });
+     const data = await response.json();
 
     if (!response.ok) {
       // サーバーが返したエラーの説明を表示する。
